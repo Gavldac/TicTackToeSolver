@@ -42,74 +42,128 @@ public class TicTacToeSolver {
      *         the game is unfinished.
      */
     public static char determineWinner(String moves) {
-        ArrayList<Integer> positions = new ArrayList<>();
+        // Since the last move in a game of TicTacToe determines if there was a winner
+        // we only need to check the last move to see if it creates 3 in a row based on
+        // that
+        // last move's row, column, or diagonal (if applicable)
+
+        // Get the last player's Character; X or O (example String: 2X4O8X6O5X)
         char player = moves.charAt(moves.length() - 1);
 
-        // "2X4O8X6O5X"
+        // gather all of the moves made by the last player
+        ArrayList<Integer> positions = new ArrayList<>();
         for (int i = moves.length() - 2; i >= 0; i -= 4) {
             // position is decreased to match 0 indexing
             positions.add(Character.getNumericValue(moves.charAt(i)) - 1);
         }
 
+        // check for a win by row, column, or Diagonal
         boolean rowWin = checkRow(positions);
         boolean colWin = checkColumn(positions);
         boolean diagWin = checkDiag(positions);
 
-        //System.out.println("row: " + rowWin + " col: " + colWin + " diag: " + diagWin);
+        // declare a winner if any of the previous checks returned true
         if (rowWin || colWin || diagWin)
             return player;
 
+        // If no winner, return a Tie if the board is full
         if (moves.length() == 18)
             return 'T';
-        return 'U'; // TODO: Return game state ('I' is a placeholder)
+
+        // Board is not full and no winner then return Unfinished
+        return 'U';
     }
 
     private static boolean checkRow(ArrayList<Integer> positions) {
-        int row = 2;
-        if (positions.getFirst() < 6)
-        row = 1;
-        if (positions.getFirst() < 3)
-        row = 0;
-        
-        //adjust the row index to the starting index of the row
-        row*=3; 
-        
-        //check if all the row positions are found
+        /*
+         * row 0  _|_|_
+         * row 1  _|_|_
+         * row 2   | |
+         */
+
+        // int math to find row index ( 0-2 / 3 = 0; 3-5 / 3 = 1; 6-8 / 3 = 2 )
+        int row = positions.getFirst() / 3;
+
+        // adjust the row index to the starting index of the row (0 or 3 or 6)
+        row *= 3;
+
+        // check if all the positions are in the row
         boolean contains = true;
-        for (int i = 0; i < 3; i++){
-            contains = (contains && positions.contains(row++));
+        for (int i = 0; i < 3; i++) {
+            contains = (positions.contains(row++));
+            if (!contains)
+                return contains;
         }
         return contains;
+
+        // If wanting to operate on n instead of a constant
+        // int row = positions.getFirst() / n;
+        // row *= n;
+        // for (int i = 0; i < n; i++) {
+        //     contains = (positions.contains(row++));
+        //     if (!contains)
+        //         return contains;
+        // }
+        // return contains;
     }
-    
+        
+
     private static boolean checkColumn(ArrayList<Integer> positions) {
+        /*
+         * Columns: 0 1 2
+         *          _|_|_
+         *          _|_|_
+         *           | |
+         */
+
         int col = positions.getFirst() % 3;
-        
+
+        // check if all the postions are in the column
         boolean contains = true;
-        // loop to check column
         for (int i = col; i < 9; i += 3) {
-            contains = (contains && positions.contains(i));
+            contains = (positions.contains(i));
+            if (! contains)
+                return contains;
         }
         return contains;
+
+        // if wanting to operate on n instead of a constant
+        // int col = positions.getFirst() % n;
+        // boolean contains = true;
+        // for (int i = col; i < n*n; i += n) {
+        //     contains = (positions.contains(i));
+        //     if (! contains)
+        //         return contains;
+        // }
+        // return contains;
     }
-    
+
     private static boolean checkDiag(ArrayList<Integer> positions) {
         boolean left = true;
         boolean right = true;
 
-        //check the left diag {0, 4, 8}
-        for (int i = 0; i < 9; i+=4){
+        // check the left diag {0, 4, 8}
+        for (int i = 0; i < 9; i += 4) {
             left = (left && positions.contains(i));
         }
 
-        //check the right diag {2, 4, 6}
-        for (int i = 2; i < 7; i+=2 ){
+        // check the right diag {2, 4, 6}
+        for (int i = 2; i < 7; i += 2) {
             right = (right && positions.contains(i));
         }
         return left || right;
+
+        // if wanting to operate on n instead of a constant
+        // for (int i = 0; i < n*n; i += (n+1)) {
+        //     left = (left && positions.contains(i));
+        // }
+
+        // if wanting to operate on n instead of a constant
+        // for (int i = (n-1); i < n*n-n; i += (n-1)) {
+        //     right = (right && positions.contains(i));
+        // }
+        // return left || right;
     }
-
-
 
     // * * * * * * * * Testing - Do Not Modify * * * * * * * *
 
