@@ -64,7 +64,6 @@ public class TicTacToeSolver {
         return 'U'; // TODO: Return game state ('I' is a placeholder)
     }
 
-    
     private static boolean checkRow(ArrayList<Integer> positions) {
         int row = 2;
         if (positions.getFirst() < 6)
