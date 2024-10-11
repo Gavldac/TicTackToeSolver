@@ -96,7 +96,7 @@ public class TicTacToeSolver {
         }
         return contains;
 
-        // If wanting to operate on n instead of a constant
+        // If wanting to operate on n x n board instead of constants
         // int row = positions.getFirst() / n;
         // row *= n;
         // for (int i = 0; i < n; i++) {
@@ -127,7 +127,7 @@ public class TicTacToeSolver {
         }
         return contains;
 
-        // if wanting to operate on n instead of a constant
+        // if wanting to operate on n x n board instead of constants
         // int col = positions.getFirst() % n;
         // boolean contains = true;
         // for (int i = col; i < n*n; i += n) {
@@ -153,12 +153,12 @@ public class TicTacToeSolver {
         }
         return left || right;
 
-        // if wanting to operate on n instead of a constant
+        // if wanting to operate on n x n board instead of constants
         // for (int i = 0; i < n*n; i += (n+1)) {
         //     left = (left && positions.contains(i));
         // }
 
-        // if wanting to operate on n instead of a constant
+        // if wanting to operate on n x n board instead of constants
         // for (int i = (n-1); i < n*n-n; i += (n-1)) {
         //     right = (right && positions.contains(i));
         // }
