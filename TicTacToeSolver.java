@@ -44,14 +44,40 @@ public class TicTacToeSolver {
     public static char determineWinner(String moves) {
         // Since the last move in a game of TicTacToe determines if there was a winner
         // we only need to check the last move to see if it creates 3 in a row based on
-        // that
-        // last move's row, column, or diagonal (if applicable)
+        // that last move's row, column, or diagonal (if applicable)
 
         // Get the last player's Character; X or O (example String: 2X4O8X6O5X)
-        char player = moves.charAt(moves.length() - 1);
+        char lastPlayer = moves.charAt(moves.length() - 1);
 
         // gather all of the moves made by the last player
         ArrayList<Integer> positions = new ArrayList<>();
+
+        // If using a board that is greater than 3x3 then the positions available become
+        // longer than 2 digits. This series of loops should take the last player's char (X or O) 
+        // and use that to gather the digits before to be parsed and added to the positions list. 
+        // int index = moves.length() - 1;
+        // char currentPlayer = lastPlayer;
+        // while (index > 0){
+            
+        //     String position = "";
+        //     while (currentPlayer == lastPlayer && index > 0){
+        //         char p = moves.charAt(--index);
+        //         if (Character.isDigit(p))
+        //             position = p + position;
+        //         else {
+        //             currentPlayer = p;
+        //             positions.add(Integer.parseInt(position));
+        //         }
+        //     }
+        //     while (currentPlayer != lastPlayer && index > 0){
+        //         char p = moves.charAt(--index);
+        //         if (Character.isLetter(p))
+        //             currentPlayer = p;
+        //     }
+        // }
+
+        // If playing board is 3x3 then all available positions are going to be single digit. No need for 
+        // for more complicated parsing of String characters.
         for (int i = moves.length() - 2; i >= 0; i -= 4) {
             // position is decreased to match 0 indexing
             positions.add(Character.getNumericValue(moves.charAt(i)) - 1);
@@ -64,7 +90,7 @@ public class TicTacToeSolver {
 
         // declare a winner if any of the previous checks returned true
         if (rowWin || colWin || diagWin)
-            return player;
+            return lastPlayer;
 
         // If no winner, return a Tie if the board is full
         if (moves.length() == 18)
