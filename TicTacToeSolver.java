@@ -16,11 +16,11 @@ import java.util.ArrayList;
  * is <position of move><player that made move><position of move><player that
  * made move>. e.g. "2X3O8X7O5X" results in:
  * 
- * | X | O
+ *    | X | O
  * -----------
- * | X |
+ *    | X |
  * -----------
- * O | X |
+ *  O | X |
  * 
  * This class includes a method determineWinner to evaluate the game state
  * and a main method for testing.
