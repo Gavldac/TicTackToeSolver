@@ -66,7 +66,7 @@ public class TicTacToeSolver {
         //             position = p + position;
         //         else {
         //             currentPlayer = p;
-        //             positions.add(Integer.parseInt(position));
+        //             positions.add( Integer.parseInt(position) - 1 ); // subtract one to adjust for a 0 index
         //         }
         //     }
         //     while (currentPlayer != lastPlayer && index > 0){
